@@ -1,0 +1,83 @@
+# **Leetcode Problem #148 - Sort List**  
+
+## **📌 Problem Statement**  
+Given the head of a **linked list**, return the list after **sorting** it in **ascending order**.  
+
+### **🔹 Example 1:**  
+```python
+Input: head = [4,2,1,3]  
+Output: [1,2,3,4]  
+```
+
+### **🔹 Example 2:**  
+```python
+Input: head = [-1,5,3,4,0]  
+Output: [-1,0,3,4,5]  
+```
+
+### **🔹 Example 3:**  
+```python
+Input: head = []  
+Output: []  
+```
+
+---
+
+## **🚀 Solution Approach**  
+This problem is best solved using **Merge Sort** because:  
+- It works efficiently on **linked lists** with `O(n log n)` time complexity.  
+- Unlike quicksort, merge sort does **not require random access**, making it ideal for linked lists.  
+
+**Steps to solve using Merge Sort:**  
+1. **Find the middle** of the linked list using **fast and slow pointers**.  
+2. **Recursively sort** the left and right halves.  
+3. **Merge** the two sorted halves using a **helper function**.  
+
+---
+
+## **📝 Optimized Python Solution**  
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None or head.next is None:
+            return head
+        slow, fast = head, head.next
+        while fast and fast.next:
+            fast, slow = fast.next.next, slow.next
+        mid, slow.next = slow.next, None
+        left, right = self.sortList(head), self.sortList(mid)
+        p = dummy = ListNode(0)
+        while left and right:
+            if left.val < right.val:
+                p.next, left = left, left.next
+            else:
+                p.next, right = right, right.next
+            p = p.next
+        if left:
+            p.next = left
+        if right:
+            p.next = right
+        return dummy.next
+```
+
+---
+
+## **⏳ Time & Space Complexity**  
+✅ **Time Complexity:** `O(n log n)`, due to merge sort.  
+✅ **Space Complexity:** `O(log n)`, for recursion stack.  
+
+---
+
+---
+
+## **⭐ Follow for More**  
+If you found this helpful, **⭐ star** the repo and follow me on GitHub! 🚀😊  
