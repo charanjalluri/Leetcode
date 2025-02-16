@@ -1,0 +1,113 @@
+# 🔄 Reverse Linked List (LeetCode #206)
+
+## 📌 Problem Statement  
+Given the `head` of a singly linked list, reverse the list and return its head.
+
+### 🔹 Example 1:
+```python
+Input: head = [1,2,3,4,5]  
+Output: [5,4,3,2,1]
+```
+
+### 🔹 Example 2:
+```python
+Input: head = [1,2]  
+Output: [2,1]
+```
+
+### 🔹 Example 3:
+```python
+Input: head = []  
+Output: []
+```
+
+---
+
+## 🚀 Solution Approach  
+
+This problem can be solved using **two approaches**:  
+
+1️⃣ **Iterative Approach:**  
+   - Uses a **prev, curr, and next_node** pointer to reverse the links.  
+   - Modifies pointers in `O(1)` space.  
+
+2️⃣ **Recursive Approach:**  
+   - Recursively reverses the linked list.  
+   - Uses extra space due to recursive function calls.
+
+---
+
+## 📝 Python Solution (Iterative)
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def reverseList(self, head):
+        """
+        Iteratively reverses a linked list.
+        :param head: ListNode (head of the linked list)
+        :return: ListNode (new head of the reversed linked list)
+        """
+        prev = None
+        curr = head
+        
+        while curr:
+            next_node = curr.next  # Store next node
+            curr.next = prev  # Reverse the link
+            prev = curr  # Move prev to current node
+            curr = next_node  # Move to next node
+
+        return prev  # New head of reversed list
+```
+
+---
+
+## 📝 Python Solution (Recursive)
+```python
+class Solution:
+    def reverseList(self, head):
+        """
+        Recursively reverses a linked list.
+        :param head: ListNode (head of the linked list)
+        :return: ListNode (new head of the reversed linked list)
+        """
+        if not head or not head.next:
+            return head
+        
+        new_head = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return new_head
+```
+
+---
+
+## ⏳ Complexity Analysis  
+✅ **Time Complexity:** `O(N)` (Each node is visited once)  
+✅ **Space Complexity:**  
+   - **Iterative:** `O(1)`  
+   - **Recursive:** `O(N)` (Due to recursion stack)
+
+---
+
+## 🛠 How to Run the Code  
+1. Clone the repository  
+   ```sh
+   git clone https://github.com/your-username/reverse-linked-list.git
+   cd reverse-linked-list
+   ```
+2. Run the script  
+   ```sh
+   python reverse_list.py
+   ```
+
+---
+
+## 🔥 Follow for More  
+If you found this helpful, don't forget to ⭐ the repo and follow me on GitHub! 😊🎉  
+```
+
+This **README.md** is **GitHub-ready**! 🚀 Let me know if you need any changes. 😊
