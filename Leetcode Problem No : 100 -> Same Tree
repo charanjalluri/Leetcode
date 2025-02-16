@@ -1,0 +1,98 @@
+# 🌳 Same Tree (LeetCode #100)
+
+## 📌 Problem Statement  
+Given the roots of two binary trees `p` and `q`, write a function to check if they are **the same**.  
+Two trees are the same if they have the same structure and the same node values.
+
+### 🔹 Example 1:
+```python
+Input: p = [1,2,3], q = [1,2,3]  
+Output: True
+```
+```
+    1       1
+   / \     / \
+  2   3   2   3
+```
+Both trees are identical.
+
+### 🔹 Example 2:
+```python
+Input: p = [1,2], q = [1,null,2]  
+Output: False
+```
+```
+    1       1
+   /         \
+  2           2
+```
+The structures are different, so the trees are not the same.
+
+---
+
+## 🚀 Solution Approach  
+
+### 1️⃣ **Recursive Approach (DFS)**
+   - If both trees are `None`, return `True`.
+   - If only one tree is `None`, return `False`.
+   - Compare the values of `p` and `q`, then check their left and right subtrees recursively.
+
+### 2️⃣ **Iterative Approach (BFS)**
+   - Use a **queue** to traverse both trees at the same time.
+   - Compare values at each level.
+
+---
+
+## 📝 Python Solution (Recursive - DFS)
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def isSameTree(self, p, q):
+        """
+        Checks if two binary trees are identical using DFS.
+        :param p: TreeNode (root of first tree)
+        :param q: TreeNode (root of second tree)
+        :return: bool (True if same, False otherwise)
+        """
+        if not p and not q:
+            return True
+        if not p or not q or p.val != q.val:
+            return False
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+```
+
+---
+
+```
+
+---
+
+## ⏳ Complexity Analysis  
+✅ **Time Complexity:** `O(N)` (Visit all nodes once)  
+✅ **Space Complexity:**  
+   - **DFS Recursive:** `O(N)` (Recursion stack in worst case)  
+   - **BFS Iterative:** `O(N)` (Queue for level-order traversal)
+
+---
+
+## 🛠 How to Run the Code  
+1. Clone the repository  
+   ```sh
+   git clone https://github.com/your-username/same-tree.git
+   cd same-tree
+   ```
+2. Run the script  
+   ```sh
+   python same_tree.py
+   ```
+
+---
+
+## 🔥 Follow for More  
+If you found this helpful, don't forget to ⭐ the repo and follow me on GitHub! 😊🎉  
+```
