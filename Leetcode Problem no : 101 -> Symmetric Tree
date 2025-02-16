@@ -1,0 +1,89 @@
+# 🌲 Symmetric Tree (LeetCode #101)
+
+## 📌 Problem Statement  
+Given the root of a binary tree, check whether it is a **mirror of itself** (i.e., symmetric around its center).
+
+### 🔹 Example 1:
+```python
+Input: root = [1,2,2,3,4,4,3]  
+Output: True
+```
+```
+        1
+       / \
+      2   2
+     / \ / \
+    3  4 4  3
+```
+The tree is symmetric.
+
+### 🔹 Example 2:
+```python
+Input: root = [1,2,2,null,3,null,3]  
+Output: False
+```
+```
+        1
+       / \
+      2   2
+       \    \
+        3    3
+```
+The structure is not symmetric.
+
+---
+
+## 🚀 Solution Approach  
+
+### 1️⃣ **Recursive Approach (DFS)**
+   - A tree is symmetric if the **left subtree** is a mirror of the **right subtree**.
+   - Compare:
+     - Left subtree’s left child with the right subtree’s right child.
+     - Left subtree’s right child with the right subtree’s left child.
+
+### 2️⃣ **Iterative Approach (BFS)**
+   - Use a **queue** to traverse pairs of nodes.
+   - Ensure values match and that the structure remains symmetric.
+
+---
+
+## 📝 Python Solution (Recursive - DFS)
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def isSymmetric(self, root):
+        """
+        Checks if a binary tree is symmetric using DFS.
+        :param root: TreeNode (root of the tree)
+        :return: bool (True if symmetric, False otherwise)
+        """
+        if not root:
+            return True
+        
+        def isMirror(t1, t2):
+            if not t1 and not t2:
+                return True
+            if not t1 or not t2 or t1.val != t2.val:
+                return False
+            return isMirror(t1.left, t2.right) and isMirror(t1.right, t2.left)
+        
+        return isMirror(root.left, root.right)
+```
+---
+
+## ⏳ Complexity Analysis  
+✅ **Time Complexity:** `O(N)` (Visit all nodes once)  
+✅ **Space Complexity:**  
+   - **DFS Recursive:** `O(N)` (Recursion stack in worst case)  
+   - **BFS Iterative:** `O(N)` (Queue for level-order traversal)
+
+---
+---
+
+## 🔥 Follow for More  
+If you found this helpful, don't forget to ⭐ the repo and follow me on GitHub! 😊🎉
