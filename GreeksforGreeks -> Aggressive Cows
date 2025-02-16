@@ -1,0 +1,81 @@
+The **Aggressive Cows** problem is a classic **binary search on answer** problem, commonly asked in coding interviews and competitive programming. Below is a structured explanation along with an optimized solution.  
+
+---
+## **📌 Problem Statement**  
+You are given an array `stalls[]` of size `N`, where each element represents the position of a stall. You need to place `C` cows in these stalls such that the **minimum distance** between any two cows is **maximized**.  
+
+**Constraints:**  
+- `2 ≤ C ≤ N`  
+- The stall positions are **distinct** but not necessarily sorted.  
+
+---
+
+## **🔹 Example 1:**  
+```python
+Input: stalls = [1, 2, 8, 4, 9], C = 3  
+Output: 3  
+Explanation: Placing cows at positions **1, 4, and 8** gives the maximum minimum distance of **3**.
+```
+
+### **🔹 Example 2:**  
+```python
+Input: stalls = [10, 1, 2, 7, 5], C = 2  
+Output: 9  
+Explanation: Placing cows at positions **1 and 10** maximizes the minimum distance.
+```
+
+---
+
+## **🚀 Solution Approach (Binary Search on Answer)**  
+1. **Sort the stalls**: Since the placement depends on increasing order, sorting is necessary.  
+2. **Use binary search** on the minimum possible distance (`low = 1`) and the maximum possible distance (`high = max(stalls) - min(stalls)`).  
+3. **Check if cows can be placed** with at least `mid` distance between them.  
+4. **If possible**, increase `low` (to find a larger valid distance). **Otherwise**, decrease `high`.  
+
+---
+
+## **📝 Optimized Python Solution**  
+```python
+def canPlaceCows(stalls, cows, min_dist):
+    count, last_pos = 1, stalls[0]
+    
+    for i in range(1, len(stalls)):
+        if stalls[i] - last_pos >= min_dist:
+            count += 1
+            last_pos = stalls[i]
+            if count == cows:
+                return True
+    return False
+
+def aggressiveCows(stalls, cows):
+    stalls.sort()
+    low, high = 1, stalls[-1] - stalls[0]
+    best_dist = 0
+
+    while low <= high:
+        mid = (low + high) // 2
+        if canPlaceCows(stalls, cows, mid):
+            best_dist = mid
+            low = mid + 1  # Try to maximize distance
+        else:
+            high = mid - 1  # Reduce distance
+    return best_dist
+
+# Example usage:
+stalls = [1, 2, 8, 4, 9]
+cows = 3
+print(aggressiveCows(stalls, cows))  # Output: 3
+```
+
+---
+
+## **⏳ Time & Space Complexity**  
+✅ **Time Complexity:** `O(N log D)`, where `D = max(stalls) - min(stalls)`.  
+✅ **Space Complexity:** `O(1)`, as only a few extra variables are used.  
+
+---
+
+---
+
+## **⭐ Follow for More**  
+If you found this helpful, **⭐ star** the repo and follow me on GitHub! 🚀😊
