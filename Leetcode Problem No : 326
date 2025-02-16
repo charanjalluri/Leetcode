@@ -1,0 +1,73 @@
+# 🪙 Coin Change Problem (Leetcode #322)
+
+## 📌 Problem Statement  
+Given an array of coins `coins[]` of different denominations and an integer `amount`, return the **fewest number of coins** that make up that amount. If it is **not possible** to make the amount, return `-1`.  
+
+### 🔹 Example 1:  
+```python
+Input: coins = [1, 2, 5], amount = 11  
+Output: 3  
+Explanation: 11 = 5 + 5 + 1  
+```
+
+### 🔹 Example 2:  
+```python
+Input: coins = [2], amount = 3  
+Output: -1  
+Explanation: No valid combination  
+```
+
+---
+
+## 🚀 Solution Approach  
+This problem can be solved using **Dynamic Programming (DP)** with a **bottom-up approach**.  
+- We create a **dp array** where `dp[i]` represents the **minimum number of coins** required to make `i`.  
+- Initialize `dp[i]` with `float('inf')`, meaning we assume it's impossible to form that amount initially.  
+- The base case is `dp[0] = 0` (0 coins needed to make amount 0).  
+- Iterate over each amount `i` and check every coin to see if it can contribute to the minimum count.
+
+---
+
+## 📝 Optimized Python Solution  
+
+```python
+class Solution:
+    def coinChange(self, coins, amount):
+        dp = [float('inf')] * (amount + 1)
+        dp[0] = 0  # Base case: 0 coins needed for amount 0
+
+        for i in range(1, amount + 1):
+            for c in coins:
+                if i >= c and dp[i - c] != float('inf'):
+                    dp[i] = min(dp[i], dp[i - c] + 1)
+
+        return -1 if dp[amount] == float('inf') else dp[amount]
+
+# Example usage
+sol = Solution()
+print(sol.coinChange([1, 2, 5], 11))  # Output: 3 (5+5+1)
+```
+
+---
+
+## ⏳ Time & Space Complexity  
+✅ **Time Complexity:** `O(n * m)` (where `n = amount`, `m = number of coins`)  
+✅ **Space Complexity:** `O(n)` (storing `dp` array)  
+
+---
+
+## 🛠 How to Run the Code  
+1. Clone the repository  
+   ```sh
+   git clone https://github.com/your-username/coin-change.git
+   cd coin-change
+   ```
+2. Run the script  
+   ```sh
+   python coin_change.py
+   ```
+
+---
+
+## 🔥 Follow for More  
+If you found this helpful, don't forget to ⭐ the repo and follow me on GitHub! 😊🎉  
