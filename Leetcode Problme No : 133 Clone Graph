@@ -1,0 +1,113 @@
+# 🔗 Clone Graph (LeetCode #133)
+
+## 📌 Problem Statement  
+Given a reference of a node in a **connected undirected graph**, return a **deep copy** (clone) of the graph.
+
+Each node in the graph contains a value (`int`) and a list (`List[Node]`) of its neighbors.
+
+### 🔹 Example:
+#### Input:
+```
+  1 -- 2
+  |    |
+  4 -- 3
+```
+#### Output:
+```
+  1 -- 2
+  |    |
+  4 -- 3
+```
+(A deep copy with separate nodes but the same structure.)
+
+---
+
+## 🚀 Solution Approach  
+
+### 1️⃣ **Depth-First Search (DFS) Approach:**  
+   - Use a **hash map** to store visited nodes.
+   - Recursively copy neighbors for each node.
+
+### 2️⃣ **Breadth-First Search (BFS) Approach:**  
+   - Use a **queue** and a hash map.
+   - Clone each node level by level.
+
+---
+
+## 📝 Python Solution (DFS)
+```python
+class Node:
+    def __init__(self, val=0, neighbors=None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+
+class Solution:
+    def cloneGraph(self, node):
+        """
+        Clones a graph using DFS.
+        :param node: Node (original graph node)
+        :return: Node (cloned graph node)
+        """
+        if not node:
+            return None
+
+        clones = {}
+
+        def dfs(curr):
+            if curr in clones:
+                return clones[curr]
+
+            copy = Node(curr.val)
+            clones[curr] = copy
+
+            for neighbor in curr.neighbors:
+                copy.neighbors.append(dfs(neighbor))
+
+            return copy
+
+        return dfs(node)
+```
+
+---
+
+## 📝 Python Solution (BFS)
+```python
+from collections import deque
+
+class Solution:
+    def cloneGraph(self, node):
+        """
+        Clones a graph using BFS.
+        :param node: Node (original graph node)
+        :return: Node (cloned graph node)
+        """
+        if not node:
+            return None
+
+        clones = {node: Node(node.val)}
+        queue = deque([node])
+
+        while queue:
+            curr = queue.popleft()
+            for neighbor in curr.neighbors:
+                if neighbor not in clones:
+                    clones[neighbor] = Node(neighbor.val)
+                    queue.append(neighbor)
+                clones[curr].neighbors.append(clones[neighbor])
+
+        return clones[node]
+```
+
+---
+
+## ⏳ Complexity Analysis  
+✅ **Time Complexity:** `O(N + E)` (Nodes + Edges)  
+✅ **Space Complexity:** `O(N)` (Storing copies in a hash map)
+
+---
+
+---
+
+## 🔥 Follow for More  
+If you found this helpful, don't forget to ⭐ the repo and follow me on GitHub! 😊🎉  
+```
