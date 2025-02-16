@@ -1,0 +1,67 @@
+# **Leetcode Problem #169 - Majority Element**  
+
+## **📌 Problem Statement**  
+Given an array `nums` of size `n`, return the **majority element**.  
+The majority element is the element that **appears more than** `⌊n / 2⌋` times.  
+You may assume that the majority element **always exists** in the array.  
+
+### **🔹 Example 1:**  
+```python
+Input: nums = [3, 2, 3]  
+Output: 3  
+```
+
+### **🔹 Example 2:**  
+```python
+Input: nums = [2, 2, 1, 1, 1, 2, 2]  
+Output: 2  
+```
+
+---
+
+## **🚀 Solution Approach (Boyer-Moore Voting Algorithm)**  
+The **Boyer-Moore Voting Algorithm** efficiently finds the majority element in `O(n)` time and `O(1)` space.  
+
+**Steps:**  
+1. Maintain a **count** and a **candidate element**.  
+2. Iterate through the array:  
+   - If `count == 0`, set the current number as **candidate**.  
+   - If the current number is the same as the candidate, **increase** count.  
+   - Otherwise, **decrease** count.  
+3. The candidate at the end is the **majority element**.  
+
+---
+
+## **📝 Optimized Python Solution**  
+```python
+class Solution:
+    def majorityElement(self, nums):
+        count = 0
+        candidate = None
+
+        for num in nums:
+            if count == 0:
+                candidate = num
+            count += (1 if num == candidate else -1)
+
+        return candidate
+
+# Example usage:
+sol = Solution()
+print(sol.majorityElement([3, 2, 3]))  # Output: 3
+print(sol.majorityElement([2, 2, 1, 1, 1, 2, 2]))  # Output: 2
+```
+
+---
+
+## **⏳ Time & Space Complexity**  
+✅ **Time Complexity:** `O(n)`, single pass through the array.  
+✅ **Space Complexity:** `O(1)`, no extra space used.  
+
+---
+---
+
+## **⭐ Follow for More**  
+If you found this helpful, **⭐ star** the repo and follow me on GitHub! 🚀😊  
+
+---
