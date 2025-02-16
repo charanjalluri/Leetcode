@@ -1,0 +1,65 @@
+# 🌳 Maximum Depth of Binary Tree (LeetCode #104)
+
+## 📌 Problem Statement  
+Given the `root` of a binary tree, return its **maximum depth**.  
+The maximum depth is the number of nodes along the longest path from the root node down to the **furthest leaf node**.
+
+### 🔹 Example 1:
+```python
+Input: root = [3,9,20,null,null,15,7]  
+Output: 3
+```
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+### 🔹 Example 2:
+```python
+Input: root = [1, null, 2]  
+Output: 2
+```
+
+---
+
+## 🚀 Solution Approach  
+
+### 1️⃣ **Depth-First Search (DFS - Recursive):**  
+   - Recursively find the depth of left and right subtrees.  
+   - Maximum depth = `1 + max(left_depth, right_depth)`.  
+
+### 2️⃣ **Breadth-First Search (BFS - Iterative):**  
+   - Use a **queue** to traverse level by level.  
+   - Count the number of levels in the tree.
+
+---
+
+## 📝 Python Solution (Recursive - DFS)
+```python
+# """class Solution:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right"""
+
+class Solution(object):
+    def maxDepth(self, root):
+        if root is None:
+            return 0
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+---
+
+## ⏳ Complexity Analysis  
+✅ **Time Complexity:** `O(N)` (Visit all nodes once)  
+✅ **Space Complexity:**  
+   - **DFS Recursive:** `O(N)` (Recursion stack in worst case)  
+   - **BFS Iterative:** `O(N)` (Queue for level-order traversal)
+
+---
+---
+
+## 🔥 Follow for More  
+If you found this helpful, don't forget to ⭐ the repo and follow me on GitHub! 😊🎉  
