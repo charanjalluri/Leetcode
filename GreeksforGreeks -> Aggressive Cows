@@ -36,35 +36,44 @@ Explanation: Placing cows at positions **1 and 10** maximizes the minimum distan
 
 ## **📝 Optimized Python Solution**  
 ```python
-def canPlaceCows(stalls, cows, min_dist):
-    count, last_pos = 1, stalls[0]
-    
-    for i in range(1, len(stalls)):
-        if stalls[i] - last_pos >= min_dist:
-            count += 1
-            last_pos = stalls[i]
-            if count == cows:
-                return True
-    return False
+class Solution:
+    def canPlaceCows(self, stalls, cows, min_dist):
+        """
+        Helper function to check if we can place 'cows' in the stalls 
+        such that the minimum distance between them is at least 'min_dist'.
+        """
+        count = 1  # Place the first cow in the first stall
+        last_pos = stalls[0]  # ✅ Correct initialization: Place first cow in the first stall
 
-def aggressiveCows(stalls, cows):
-    stalls.sort()
-    low, high = 1, stalls[-1] - stalls[0]
-    best_dist = 0
+        for i in range(1, len(stalls)):
+            if stalls[i] - last_pos >= min_dist:  # Check if the next cow can be placed
+                count += 1
+                last_pos = stalls[i]  # ✅ Update last placed cow's position correctly
+                if count == cows:  # ✅ If all cows are placed successfully
+                    return True
+        return False
 
-    while low <= high:
-        mid = (low + high) // 2
-        if canPlaceCows(stalls, cows, mid):
-            best_dist = mid
-            low = mid + 1  # Try to maximize distance
-        else:
-            high = mid - 1  # Reduce distance
-    return best_dist
+    def aggressiveCows(self, stalls, cows):
+        """
+        Uses Binary Search to find the largest minimum distance possible 
+        between cows in given stall positions.
+        """
+        if not stalls or cows == 0:
+            return 0  # Edge case: No stalls or no cows
 
-# Example usage:
-stalls = [1, 2, 8, 4, 9]
-cows = 3
-print(aggressiveCows(stalls, cows))  # Output: 3
+        stalls.sort()  # ✅ Ensure correct stall ordering
+        low, high = 1, stalls[-1] - stalls[0]  # Possible min and max distances
+        best_dist = 0
+
+        while low <= high:
+            mid = (low + high) // 2  # Guess the middle distance
+            if self.canPlaceCows(stalls, cows, mid):  # Check if it's possible with 'mid' distance
+                best_dist = mid  # Update the best possible answer
+                low = mid + 1  # Try to maximize distance
+            else:
+                high = mid - 1  # Reduce the search space
+
+        return best_dist
 ```
 
 ---
